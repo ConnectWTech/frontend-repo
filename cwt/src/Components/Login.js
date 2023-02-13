@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState,useContext} from 'react';
+import Context from "../Contexts/Context"
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import Navbar from './Navbar';
@@ -10,6 +11,8 @@ import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import '../CSS/login.css'
 import imgs from '../img/placeholder.png'
+
+
 
 const theme = createTheme({
     palette: {
@@ -29,15 +32,10 @@ const theme = createTheme({
     const [alert, setAlert] = useState(false);
     const [alertContent, setAlertContent] = useState('');
     const navigate = useNavigate(); 
-    const usernameHandleChange = (event) => {
-        setUsername(event.target.value);
-    };
-    const passwordHandleChange = (event) => {
-        setPassword(event.target.value);
-        };
+    let context = useContext(Context)
+
     const submitChange = async(event) =>{
         event.preventDefault()
-       
         
         let raw = JSON.stringify({
             username,
@@ -48,22 +46,24 @@ const theme = createTheme({
             headers: { 'Content-Type': 'application/json' },
             body: raw
         };
-        let logindata = await fetch('http://localhost:5019/users/login/',requestOptions)
+        await fetch('http://localhost:5019/users/login/',requestOptions)
         .then(result => result.json())
-        .then(datas => {
-            if (datas.alert === 'loged in') {
-            localStorage.setItem("userId", datas.data.id);
-            localStorage.setItem("username", datas.data.username);
-            localStorage.setItem("firstname", datas.data.firstname);
-            localStorage.setItem("typeof", datas.data.type_of);
+        .then(data => {
+            if (data.alert === 'logged in') {
+            localStorage.setItem("userId", data.loginData.id);
+            localStorage.setItem("username", data.loginData.username);
+            localStorage.setItem("firstname", data.loginData.firstname);
+            localStorage.setItem("typeof", data.loginData.type_of);
+            context.settype_of(data.loginData.type_of)
+            context.setUserId(data.loginData.id)
             navigate('/')
         
             }else {
-                if(datas.alert === 'invalid username'){
-                    setAlertContent(datas.alert);
+                if(data.alert === 'invalid username'){
+                    setAlertContent(data.alert);
                     setAlert(true);
                 }else{
-                    setAlertContent(datas.alert);
+                    setAlertContent(data.alert);
                     setAlert(true);
                 }
                 
@@ -85,8 +85,8 @@ const theme = createTheme({
                         <h1 className='header'>Login To CWT</h1>
                         <ThemeProvider theme={theme}>
                             <Box component="form" sx={{'& > :not(style)': { m: 1, width: '25ch' },}} noValidate autoComplete="on" className='login-form'>
-                                <TextField  onChange={usernameHandleChange} value={username} label="Username" className="filled-basic" variant="filled"/>
-                                <TextField  onChange={passwordHandleChange} value={password} className="filled-basic" variant="filled"label="Password" />
+                                <TextField  onChange={(event)=>{setUsername(event.target.value)}} value={username} label="Username" className="filled-basic" variant="filled"/>
+                                <TextField  onChange={(event)=>{setPassword(event.target.value)}} value={password} className="filled-basic" variant="filled"label="Password" />
                                 <Button color="primary" onClick={submitChange} variant="contained" >Submit</Button>
                                 <Button color="primary"onClick={() => { navigate('/sign-up') }} variant="contained" >Or Sign Up</Button>
                             </Box>

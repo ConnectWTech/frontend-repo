@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import Sidebar from './Sidebar'
-import logo from '../Img/logo-png.png'
+import logo from '../img/logo-png.png'
 
  export default function Navbar (props){
     return (
