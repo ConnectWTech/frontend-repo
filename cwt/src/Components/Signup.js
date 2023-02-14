@@ -59,9 +59,10 @@ const theme = createTheme({
         };
     const submitChange = async(event) =>{
         event.preventDefault()
-       
-        let info = await fetch(`http://localhost:5019/users/check/${username}/`)
+        console.log('hello')
+        let info = await fetch(`http://localhost:5011/users/check/${username}/`)
         const result = await info.json()
+        console.log('hello')
         if (password.length <= 5) {
             setAlertContent('Password Must Be 5 Charcters Or More');
             setAlert(true);
@@ -89,12 +90,17 @@ const theme = createTheme({
                 headers: { 'Content-Type': 'application/json' },
                 body: raw
             };
-            console.log('noooioooooooo',result)
-            let signed = await fetch('http://localhost:5019/users/', requestOptions)
-            const json = await signed.json()
-            console.log(json)
-            console.log("You've succesfully signed up.")
-            navigate('/login')
+            await fetch('http://localhost:5011/users/',requestOptions)
+            .then(result => {
+                console.log("You've succesfully signed up.") 
+                navigate('/login')
+                return result.json()
+               
+            })
+            .catch(error => console.log('error', error));
+            
+            
+            
            
 
     }
