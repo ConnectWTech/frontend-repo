@@ -7,7 +7,7 @@ export default function Application (){
     return (
         <div>
             <Navbar></Navbar>
-       <h1>efngviesnvijenvji</h1>
+       <h1>Application</h1>
         </div>
     )
 

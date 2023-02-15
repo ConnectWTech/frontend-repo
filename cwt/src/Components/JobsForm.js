@@ -7,7 +7,7 @@ export default function JobsForm (){
     return (
         <div>
             <Navbar></Navbar>
-       <h1>efngviesnvijenvji</h1>
+       <h1>jobs form</h1>
         </div>
     )
 

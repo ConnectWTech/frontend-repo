@@ -1,72 +1,116 @@
-import {
-    Drawer,
-    ListItem,
-    ListItemText,
-  } from "@material-ui/core";
-  import MenuIcon from '@mui/icons-material/Menu';
-  import { useState } from "react";
-  import React from "react";
-  import { useNavigate } from 'react-router-dom';
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import { typography,shadows } from '@mui/system';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import Button from '@mui/material/Button';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import { useState, useContext} from 'react';
+import Context from "../Contexts/Context"
+import { useNavigate } from 'react-router-dom';
+import MenuIcon from '@mui/icons-material/Menu';
 
+export default function SwipeableTemporaryDrawer() {
+  const [state, setState] = useState(false);
+  const navigate = useNavigate()
+  let context = useContext(Context)
+  let type = localStorage.getItem("typeof")
+  const toggleDrawer = (open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
 
-  
-  function Sidebar() {
-    const [open, setOpen] = useState(false);
-    const navigate = useNavigate()
-    const getList = () => {
-      if(localStorage.getItem('username')){
-        return(
-          <div style={{ width: 250 }} onClick={() => setOpen(false)}>
-            <ListItem  button onClick={()=>{navigate('/')}}>
-              <ListItemText primary='Home' />
-            </ListItem>
-            <ListItem  button>
-              <ListItemText  primary='Make A Post' />
-            </ListItem>
-            <ListItem  button onClick={()=>{navigate('/login')}}>
-              <ListItemText  primary='Profile' />
-            </ListItem>
-            <ListItem  button onClick={()=>{navigate('/login')}}>
-              <ListItemText  primary='Jobs' />
-            </ListItem>
-            <ListItem  button onClick={()=>{navigate('/login')}}>
-              <ListItemText  primary='Inbox' />
-            </ListItem>
-            <ListItem  button onClick={()=>{navigate('/login')}}>
-              <ListItemText  primary='Application' />
-            </ListItem>
-            <ListItem  button>
-              <ListItemText  primary='LogOut' />
-            </ListItem>
-            </div>
+    setState(open);
+  };
+
+  const list = (anchor) =>{
+    if (type === 'Business'){
+      return(
+        <Box sx={{ width:250, fontStyle: 'italic', boxShadow: 3 , color: '#91CA9D', bgcolor:'#343432'}}  role="presentation" onClick={toggleDrawer(false)} onKeyDown={toggleDrawer(false)}>
+          <List>
+            {[['Home','/'],['Search','/Search'],['Profile', '/Profile'],['Make A Job Post', '/JobsForm'],['Wedsites', '/EngineerFeeds'],['Jobs', '/jobs']].map((text, index, array) => (
+              <ListItem key={text} disablePadding onClick={()=>{navigate(array[index][1])}}>
+                <ListItemButton>
+                  <ListItemText primary={array[index][0]} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+          <Divider />
+          <List>
+            {[['Application'],['All Messages'],['Log out']].map((text, index) => (
+              <ListItem key={text} disablePadding>
+                <ListItemButton>
+                  <ListItemText primary={text} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+        </Box>
         )
+      } else if(type === 'Engineer'){
+        return(
+          <Box sx={{ width:250, fontStyle: 'italic', boxShadow: 3 , color: '#91CA9D', bgcolor:'#343432'}} role="presentation" onClick={toggleDrawer(false)} onKeyDown={toggleDrawer(false)}>
+            <List sx={{ boxShadow: 3 }}>
+              {[['Home','/'],['Search','/Search'],['Profile', '/Profile'],['Make A Post', '/PostWedsite'],['Wedsites', '/EngineerFeeds'],['Jobs', '/jobs']].map((text, index, array) => (
+                <ListItem  sx={{}}key={text} disablePadding onClick={()=>{navigate(array[index][1])}}>
+                  <ListItemButton>
+                    <ListItemText primary={array[index][0]} />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
+            <Divider/>
+            <List>
+              {[['Application'],['All Messages'],['Log out']].map((text, index) => (
+                <ListItem key={text} disablePadding>
+                  <ListItemButton>
+                    <ListItemText primary={text} />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
+          </Box>
+          )
       }else{
-           return( 
-              <div style={{ width: 250 }} onClick={() => setOpen(false)}>
-              <ListItem  button onClick={()=>{navigate('/')}}>
-              <ListItemText primary='Home' />
-              </ListItem>
-              <ListItem  button onClick={()=>{navigate('/login')}}>
-              <ListItemText  primary='Login' />
-              </ListItem>
-              <ListItem  button onClick={()=>{navigate('/login')}}>
-              <ListItemText  primary='Jobs' />
-              </ListItem>
-              </div>
-            )
+        return(
+        <Box sx={{ width:250, fontStyle: 'italic', boxShadow: 3 , color: '#91CA9D', bgcolor:'#343432'}} x role="presentation" onClick={toggleDrawer(false)} onKeyDown={toggleDrawer(false)}>
+            <List>
+              {[['Home','/'],['Login or Sign up','/login'],['Search','/Search'],['Jobs', '/jobs'],['Wedsites', '/EngineerFeeds']].map((text, index, array) => (
+                <ListItem key={text} disablePadding onClick={()=>{navigate(array[index][1])}}>
+                  <ListItemButton>
+                    <ListItemText primary={array[index][0]} />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
+          </Box>
+          )
       }
+};
 
-        };
-    return (
-      <div>
-       <div id="menuBackground">
-        <MenuIcon sx={{ fontSize: 60 }} onClick={() => setOpen(true)}/>
-        </div>
-        <Drawer sx={{width: 20,margin: 2}} open={open} anchor={"left"} onClose={() => setOpen(false)}>
-          {getList()}
-        </Drawer>
-      </div>
-    );
-  }
-  
-  export default Sidebar;
+  return (
+    <div sx={{ bgcolor: '#91CA9D'}}>
+    
+        <div id="menuBackground" >
+          <Button onClick={toggleDrawer(true)}>{<MenuIcon sx={{ fontSize: 60, color:'#343432' }}/>}</Button>
+          </div>
+          <SwipeableDrawer
+          
+            sx={{backgroundColor: 'transparent',"& .MuiPaper-root": {
+              bgcolor:'#343432'
+            }}} 
+            anchor={'left'}
+            open={state}
+            onClose={toggleDrawer(false)}
+            onOpen={toggleDrawer(true)}
+          >
+            {list('left')}
+          </SwipeableDrawer>
+
+    </div>
+  );
+}

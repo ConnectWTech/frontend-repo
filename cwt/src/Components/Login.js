@@ -46,7 +46,7 @@ const theme = createTheme({
             headers: { 'Content-Type': 'application/json' },
             body: raw
         };
-        await fetch('http://localhost:5011/users/login/',requestOptions)
+        await fetch('http://localhost:5021/users/login/',requestOptions)
         .then(result => result.json())
         .then(data => {
             if (data.alert === 'logged in') {
@@ -54,8 +54,6 @@ const theme = createTheme({
             localStorage.setItem("username", data.loginData.username);
             localStorage.setItem("firstname", data.loginData.firstname);
             localStorage.setItem("typeof", data.loginData.type_of);
-            context.settype_of(data.loginData.type_of)
-            context.setUserId(data.loginData.id)
             navigate('/')
         
             }else {

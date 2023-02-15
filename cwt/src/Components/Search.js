@@ -3,14 +3,11 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import Navbar from './Navbar';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-
-export default function JobsFeeds (){
-    let type = localStorage.getItem("typeof");
+export default function Search (){
     return (
         <div>
             <Navbar></Navbar>
-            {type === "Business" && <AddCircleOutlineIcon/>}
+       <h1>Search</h1>
         </div>
     )
 

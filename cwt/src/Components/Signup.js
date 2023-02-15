@@ -11,7 +11,6 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import imgs from '../img/placeholder.png'
 import '../CSS/login.css'
 import Alert from '@mui/material/Alert';
 
@@ -59,10 +58,9 @@ const theme = createTheme({
         };
     const submitChange = async(event) =>{
         event.preventDefault()
-        console.log('hello')
-        let info = await fetch(`http://localhost:5011/users/check/${username}/`)
+        let info = await fetch(`http://localhost:5021/users/check/${username}/`)
         const result = await info.json()
-        console.log('hello')
+     
         if (password.length <= 5) {
             setAlertContent('Password Must Be 5 Charcters Or More');
             setAlert(true);
@@ -90,7 +88,7 @@ const theme = createTheme({
                 headers: { 'Content-Type': 'application/json' },
                 body: raw
             };
-            await fetch('http://localhost:5011/users/',requestOptions)
+            await fetch('http://localhost:5021/users/',requestOptions)
             .then(result => {
                 console.log("You've succesfully signed up.") 
                 navigate('/login')

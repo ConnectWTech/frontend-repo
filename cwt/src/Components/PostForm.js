@@ -7,7 +7,7 @@ export default function WebsitePosts (){
     return (
         <div>
             <Navbar></Navbar>
-       <h1>efngviesnvijenvji</h1>
+       <h1>wedsite post form </h1>
         </div>
     )
 
