@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import Navbar from './Navbar';
@@ -15,6 +15,7 @@ import Alert from '@mui/material/Alert';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
+import { useParams } from 'react-router-dom';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -78,7 +79,7 @@ const theme = createTheme({
   });
   
 
- export default function PostForm (){
+ export default function EditForm (){
     const [bio, setbio] = useState('');
     const [photo, setPhoto] = useState('');
     const [url, setUrl] = useState('');
@@ -88,20 +89,38 @@ const theme = createTheme({
     const [alert, setAlert] = useState(false);
     const [alertContent, setAlertContent] = useState('');
     const navigate = useNavigate()
-    const userid = localStorage.getItem('userId')
+
+    let { id } = useParams();
+    useEffect(() => {
+        async function fetchData() {
+            await fetch(`http://localhost:5020/posts/info/${id}`)
+            .then(result => result.json())
+            .then(json => {
+                setUrl(json[0].url)
+                setbio(json[0].bio)
+                setPhoto(json[0].photo)
+                setHashtag(json[0].hashtag.split(','))
+                setTechnologys(json[0].technologys.split(','))
+                setTitle(json[0].title)
+            })
+            
+            }
+        fetchData();
+      }, []);
 
     const handleChange = (event) => {
       const {
         target: { value },
       } = event;
+      
       setHashtag(
         typeof value === 'string' ? value.split(',') : value,
       );
     };
     const techhandleChange = (event) => {
-        const {
-          target: { value },
-        } = event;
+        const {target: { value }} = event;
+        
+       
         setTechnologys(
           // On autofill we get a stringified value.
           typeof value === 'string' ? value.split(',') : value,
@@ -133,19 +152,20 @@ const theme = createTheme({
                 bio,
                 photo,
                 url,
-                userid
+                id
+                
             })
             console.log(raw)
             const requestOptions = {
-                method: 'POST',
+                method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: raw
             };
-            await fetch('http://localhost:5020/posts/',requestOptions)
+            await fetch('http://localhost:5020/posts/update',requestOptions)
             .then(result => result.json())
             .then(data => {
                 console.log(data)
-                navigate('/EngineerFeeds')
+                navigate(`/post/${id}`)
                
             })
             .catch(error => console.log('error', error));

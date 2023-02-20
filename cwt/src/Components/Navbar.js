@@ -1,6 +1,3 @@
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import Sidebar from './Sidebar'
 import logo from '../img/logo-png.png'

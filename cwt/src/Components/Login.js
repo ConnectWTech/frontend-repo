@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { useState,useContext} from 'react';
 import Context from "../Contexts/Context"
 import { useNavigate } from 'react-router-dom';
@@ -46,11 +45,11 @@ const theme = createTheme({
             headers: { 'Content-Type': 'application/json' },
             body: raw
         };
-        await fetch('http://localhost:5021/users/login/',requestOptions)
+        await fetch('http://localhost:5020/users/login/',requestOptions)
         .then(result => result.json())
         .then(data => {
             if (data.alert === 'logged in') {
-            localStorage.setItem("userId", data.loginData.id);
+            localStorage.setItem("userId", data.loginData.userid);
             localStorage.setItem("username", data.loginData.username);
             localStorage.setItem("firstname", data.loginData.firstname);
             localStorage.setItem("typeof", data.loginData.type_of);

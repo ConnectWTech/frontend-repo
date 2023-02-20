@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
@@ -58,7 +57,7 @@ const theme = createTheme({
         };
     const submitChange = async(event) =>{
         event.preventDefault()
-        let info = await fetch(`http://localhost:5021/users/check/${username}/`)
+        let info = await fetch(`http://localhost:5020/users/check/${username}/`)
         const result = await info.json()
      
         if (password.length <= 5) {
@@ -88,11 +87,14 @@ const theme = createTheme({
                 headers: { 'Content-Type': 'application/json' },
                 body: raw
             };
-            await fetch('http://localhost:5021/users/',requestOptions)
-            .then(result => {
-                console.log("You've succesfully signed up.") 
-                navigate('/login')
-                return result.json()
+            await fetch('http://localhost:5020/users/',requestOptions)
+            .then(result => result.json())
+            .then(data => {
+                localStorage.setItem("userId", data.userid);
+                localStorage.setItem("username", data.username);
+                localStorage.setItem("firstname", data.firstname);
+                localStorage.setItem("typeof", data.type_of);
+                navigate('/SetUp')
                
             })
             .catch(error => console.log('error', error));
