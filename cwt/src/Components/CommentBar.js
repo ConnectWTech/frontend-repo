@@ -43,7 +43,7 @@ export default function AddComments (){
                 headers: { 'Content-Type': 'application/json' },
                 body: raw
             };
-            await fetch('http://localhost:5020/comments/',requestOptions)
+            await fetch('http://localhost:5500/comments/',requestOptions)
             .then(result => result.json())
             .then(data => {
                 console.log(data)

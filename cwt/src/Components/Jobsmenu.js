@@ -5,18 +5,11 @@ import MenuItem from '@mui/material/MenuItem';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
 
-let phantom = {
-    padding: '20px',
-  }
-
-export default function CommentMenu(props) {
+export default function BasicMenu(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const navigate = useNavigate()
-  let user = localStorage.getItem('userId')
-  let { id } = useParams();
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
     
@@ -27,14 +20,16 @@ export default function CommentMenu(props) {
   const Edit = async(e)=>{
     handleClose()
     if(e.target.innerText === 'Delete'){
-      await fetch(`http://localhost:5500/comments/${props.obj}`, { method: 'DELETE' })
-      navigate(`/comment/${id}`)
+      await fetch(`http://localhost:5500/job_post/${props.obj}`, { method: 'DELETE' })
+      navigate('/jobs')
     }
-    window.location.reload(false);
+    else{
+      navigate(`/editJobs/${props.obj}`)
+    }
   }
 
   return (
-    <div style={phantom}>
+    <div>
       <Button
         id="basic-button"
         aria-controls={open ? 'basic-menu' : undefined}
@@ -53,6 +48,7 @@ export default function CommentMenu(props) {
           'aria-labelledby': 'basic-button',
         }}
       >
+        <MenuItem onClick={Edit}>Edit</MenuItem>
         <MenuItem onClick={Edit}>Delete</MenuItem>
       </Menu>
     </div>

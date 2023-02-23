@@ -84,7 +84,7 @@ const theme = createTheme({
     const [url, setUrl] = useState('');
     const [title, setTitle ] = useState('');
     const [hashtag, setHashtag] = useState([]);
-    const [technologys, setTechnologys] = useState([]);
+    const [technologies, settechnologies] = useState([]);
     const [alert, setAlert] = useState(false);
     const [alertContent, setAlertContent] = useState('');
     const navigate = useNavigate()
@@ -102,7 +102,7 @@ const theme = createTheme({
         const {
           target: { value },
         } = event;
-        setTechnologys(
+        settechnologies(
           // On autofill we get a stringified value.
           typeof value === 'string' ? value.split(',') : value,
         );
@@ -128,7 +128,7 @@ const theme = createTheme({
         
             let raw = JSON.stringify({
                 title,
-                technologys: `${technologys}`,
+                technologies: `${technologies}`,
                 hashtag: `${hashtag}`, 
                 bio,
                 photo,
@@ -141,7 +141,7 @@ const theme = createTheme({
                 headers: { 'Content-Type': 'application/json' },
                 body: raw
             };
-            await fetch('http://localhost:5020/posts/',requestOptions)
+            await fetch('http://localhost:5500/posts/',requestOptions)
             .then(result => result.json())
             .then(data => {
                 console.log(data)
@@ -174,12 +174,12 @@ const theme = createTheme({
                                 <TextField id="outlined-basic" onChange={urlhandleChange} size='small' value={url} label="Url of website" variant="outlined"/>
                                 <div style={{paddingBottom: 20 }}>
                                     <FormControl sx={{width: 300}}>
-                                        <InputLabel id="demo-multiple-checkbox-label">Technologys</InputLabel>
+                                        <InputLabel id="demo-multiple-checkbox-label">technologies</InputLabel>
                                         <Select
                                         labelId="demo-multiple-checkbox-label"
                                         id="demo-multiple-checkbox"
                                         multiple
-                                        value={technologys}
+                                        value={technologies}
                                         onChange={techhandleChange}
                                         input={<OutlinedInput label="Tag" />}
                                         renderValue={(selected) => selected.join(', ')}
@@ -187,7 +187,7 @@ const theme = createTheme({
                                         >
                                         {tech.map((name) => (
                                             <MenuItem key={name} value={name}>
-                                            <Checkbox checked={technologys.indexOf(name) > -1} />
+                                            <Checkbox checked={technologies.indexOf(name) > -1} />
                                             <ListItemText primary={name} />
                                             </MenuItem>
                                         ))}

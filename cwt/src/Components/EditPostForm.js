@@ -85,7 +85,7 @@ const theme = createTheme({
     const [url, setUrl] = useState('');
     const [title, setTitle ] = useState('');
     const [hashtag, setHashtag] = useState([]);
-    const [technologys, setTechnologys] = useState([]);
+    const [technologies, settechnologies] = useState([]);
     const [alert, setAlert] = useState(false);
     const [alertContent, setAlertContent] = useState('');
     const navigate = useNavigate()
@@ -93,14 +93,14 @@ const theme = createTheme({
     let { id } = useParams();
     useEffect(() => {
         async function fetchData() {
-            await fetch(`http://localhost:5020/posts/info/${id}`)
+            await fetch(`http://localhost:5500/posts/info/${id}`)
             .then(result => result.json())
             .then(json => {
                 setUrl(json[0].url)
                 setbio(json[0].bio)
                 setPhoto(json[0].photo)
                 setHashtag(json[0].hashtag.split(','))
-                setTechnologys(json[0].technologys.split(','))
+                settechnologies(json[0].technologies.split(','))
                 setTitle(json[0].title)
             })
             
@@ -121,7 +121,7 @@ const theme = createTheme({
         const {target: { value }} = event;
         
        
-        setTechnologys(
+        settechnologies(
           // On autofill we get a stringified value.
           typeof value === 'string' ? value.split(',') : value,
         );
@@ -147,7 +147,7 @@ const theme = createTheme({
         
             let raw = JSON.stringify({
                 title,
-                technologys: `${technologys}`,
+                technologies: `${technologies}`,
                 hashtag: `${hashtag}`, 
                 bio,
                 photo,
@@ -161,7 +161,7 @@ const theme = createTheme({
                 headers: { 'Content-Type': 'application/json' },
                 body: raw
             };
-            await fetch('http://localhost:5020/posts/update',requestOptions)
+            await fetch('http://localhost:5500/posts/update',requestOptions)
             .then(result => result.json())
             .then(data => {
                 console.log(data)
@@ -194,12 +194,12 @@ const theme = createTheme({
                                 <TextField id="outlined-basic" onChange={urlhandleChange} size='small' value={url} label="Url of website" variant="outlined"/>
                                 <div style={{paddingBottom: 20 }}>
                                     <FormControl sx={{width: 300}}>
-                                        <InputLabel id="demo-multiple-checkbox-label">Technologys</InputLabel>
+                                        <InputLabel id="demo-multiple-checkbox-label">technologies</InputLabel>
                                         <Select
                                         labelId="demo-multiple-checkbox-label"
                                         id="demo-multiple-checkbox"
                                         multiple
-                                        value={technologys}
+                                        value={technologies}
                                         onChange={techhandleChange}
                                         input={<OutlinedInput label="Tag" />}
                                         renderValue={(selected) => selected.join(', ')}
@@ -207,7 +207,7 @@ const theme = createTheme({
                                         >
                                         {tech.map((name) => (
                                             <MenuItem key={name} value={name}>
-                                            <Checkbox checked={technologys.indexOf(name) > -1} />
+                                            <Checkbox checked={technologies.indexOf(name) > -1} />
                                             <ListItemText primary={name} />
                                             </MenuItem>
                                         ))}

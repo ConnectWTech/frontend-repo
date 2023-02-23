@@ -11,7 +11,7 @@ export default function JobsFeeds (){
 
     useEffect(() => {
         async function fetchData() {
-            const result = await fetch('http://localhost:5020/job_post')
+            const result = await fetch('http://localhost:5500/job_post')
             const json = await result.json()
             setJobPost(json)
             }

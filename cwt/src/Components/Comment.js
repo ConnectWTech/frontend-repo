@@ -19,7 +19,7 @@ export default function Comments (){
     let { id } = useParams();
     useEffect(() => {
         async function fetchData() {
-            const result = await fetch(`http://localhost:5020/comments/${id}`)
+            const result = await fetch(`http://localhost:5500/comments/${id}`)
             const json = await result.json()
             setCommentsData(json)
             }

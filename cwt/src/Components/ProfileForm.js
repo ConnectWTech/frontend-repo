@@ -23,7 +23,7 @@ const theme = createTheme({
 
  export default function ProfileForm (){
     const [bio, setbio] = useState('');
-    const [technologys, setTechnologys] = useState('');
+    const [technologies, settechnologies] = useState('');
     const [photo, setPhoto] = useState('');
     const [alert, setAlert] = useState(false);
     const [alertContent, setAlertContent] = useState('');
@@ -33,8 +33,8 @@ const theme = createTheme({
         setbio(event.target.value);
       };
   
-    const technologysHandleChange = (event) => {
-        setTechnologys(event.target.value);
+    const technologiesHandleChange = (event) => {
+        settechnologies(event.target.value);
     };
     const photoHandleChange = (event) => {
         setPhoto(event.target.value);
@@ -44,16 +44,21 @@ const theme = createTheme({
         event.preventDefault()
         
             let raw = JSON.stringify({
+                bio,
+                technologies,
+                photo,
+
+
             })
             const requestOptions = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: raw
             };
-            await fetch('http://localhost:5020/users/',requestOptions)
+            await fetch('http://localhost:5500/profile/',requestOptions)
             .then(result => result.json())
             .then(data => {
-                navigate('/SetUp')
+                navigate('/')
                
             })
             .catch(error => console.log('error', error));
@@ -76,9 +81,9 @@ const theme = createTheme({
                         <ThemeProvider theme={theme}>
                             <Box component="form" sx={{'& > :not(style)': { m: .5, width: '35ch',height:'5ch' },}} noValidate autoComplete="on" className='signup-form'>
                                 <TextField id="outlined-basic" onChange={biohandleChange} size='small' value={bio} label="Bio" variant="outlined"/>
-                                <TextField id="outlined-basic" onChange={technologysHandleChange} size='small' value={technologys} label="Technologys" variant="outlined"/>
+                                <TextField id="outlined-basic" onChange={technologiesHandleChange} size='small' value={technologies} label="technologies" variant="outlined"/>
                                 <TextField id="outlined-basic" onChange={photoHandleChange} size='small' value={photo} label="Photo" variant="outlined"/>
-                                <Button color="primary" variant="contained" onClick={() => { navigate('/EngineerFeeds') }}>Submit</Button>
+                                <Button color="primary" variant="contained" onClick={submitChange}>Submit</Button>
                             </Box>
                             
                         </ThemeProvider>

@@ -12,7 +12,7 @@ export default function WebPostInfo() {
 
     useEffect(() => {
       async function fetchData() {
-          const result = await fetch(`http://localhost:5020/posts/info/${id}`)
+          const result = await fetch(`http://localhost:5500/posts/info/${id}`)
           const json = await result.json()
           setwebPost(json)
           }

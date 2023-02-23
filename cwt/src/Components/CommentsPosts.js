@@ -14,7 +14,7 @@ export default function CommentCard(props) {
 
       <CardContent sx={{ display:'flex', flexDirection:'column'}}>
         <Typography gutterBottom variant="h5" onClick={()=>{navigate(`/Profile/${props.obj.userid}`)}} component="div">
-          {props.obj.username}
+          {props.obj.username.charAt(0).toUpperCase() + props.obj.username.slice(1)}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           {props.obj.text}

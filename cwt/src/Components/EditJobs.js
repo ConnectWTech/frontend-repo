@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import Navbar from './Navbar';
@@ -15,6 +15,7 @@ import Alert from '@mui/material/Alert';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
+import { useParams } from 'react-router-dom';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -27,7 +28,15 @@ const MenuProps = {
   },
 };
 
-
+const Hash = [
+'Black Girls Who Code',
+'POC Engineers',
+'Portfolio Project',
+'Portfolio Wedsite',
+'Civic technology',
+'Hackathons',
+'First Project',
+];
 
 const tech = [
     'HTML',
@@ -70,28 +79,45 @@ const theme = createTheme({
   });
   
 
- export default function PostForm (){
+ export default function EditForm (){
     const [bio, setbio] = useState('');
     const [title, setTitle ] = useState('');
     const [technologies, settechnologies] = useState([]);
     const [alert, setAlert] = useState(false);
     const [alertContent, setAlertContent] = useState('');
     const navigate = useNavigate()
-    const userid = localStorage.getItem('userId')
 
+    let { id } = useParams();
+    useEffect(() => {
+        async function fetchData() {
+            await fetch(`http://localhost:5500/job_post/info/${id}`)
+            .then(result => result.json())
+            .then(json => {
+                setbio(json[0].bio)
+                settechnologies(json[0].technologies.split(','))
+                setTitle(json[0].title)
+            })
+            
+            }
+        fetchData();
+      }, []);
 
     const techhandleChange = (event) => {
-        const {
-          target: { value },
-        } = event;
+        const {target: { value }} = event;
+        
+       
         settechnologies(
+          // On autofill we get a stringified value.
           typeof value === 'string' ? value.split(',') : value,
         );
       };
   
     const biohandleChange = (event) => {
         setbio(event.target.value);
-      }; 
+      };
+
+  
+  
     const titleHandleChange = (event) => {
         setTitle(event.target.value);
     };
@@ -104,18 +130,20 @@ const theme = createTheme({
                 title,
                 technologies: `${technologies}`,
                 bio,
-                userid
+                id:id
+                
             })
+            console.log(raw)
             const requestOptions = {
-                method: 'POST',
+                method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: raw
             };
-            await fetch('http://localhost:5500/job_post/',requestOptions)
+            await fetch('http://localhost:5500/job_post/update',requestOptions)
             .then(result => result.json())
             .then(data => {
                 console.log(data)
-                navigate('/jobs')
+                navigate(`/jobs`)
                
             })
             .catch(error => console.log('error', error));
@@ -134,7 +162,7 @@ const theme = createTheme({
                 <div className='signup'>
                     <div>
                         
-                        <h1 className='header'>Make Website Post</h1> 
+                        <h1 className='header'>Edit Job Posts</h1> 
                         {alert ? <Alert severity='error'>{alertContent}</Alert> : <></> }   
                         <ThemeProvider theme={theme}>
                             <Box component="form" sx={{'& > :not(style)': { m: .5, width: '35ch',height:'5ch' },}} noValidate autoComplete="on" className='signup-form'>    
@@ -164,7 +192,6 @@ const theme = createTheme({
                                     </FormControl>
                                     
                                 </div>
-                              
                                 <Button color="primary" variant="contained" onClick={submitChange}>Submit</Button>
                             </Box>
                             

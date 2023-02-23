@@ -57,7 +57,7 @@ const theme = createTheme({
         };
     const submitChange = async(event) =>{
         event.preventDefault()
-        let info = await fetch(`http://localhost:5020/users/check/${username}/`)
+        let info = await fetch(`http://localhost:5500/users/check/${username}/`)
         const result = await info.json()
      
         if (password.length <= 5) {
@@ -87,14 +87,14 @@ const theme = createTheme({
                 headers: { 'Content-Type': 'application/json' },
                 body: raw
             };
-            await fetch('http://localhost:5020/users/',requestOptions)
+            await fetch('http://localhost:5500/users/',requestOptions)
             .then(result => result.json())
             .then(data => {
                 localStorage.setItem("userId", data.userid);
                 localStorage.setItem("username", data.username);
                 localStorage.setItem("firstname", data.firstname);
                 localStorage.setItem("typeof", data.type_of);
-                navigate('/SetUp')
+                navigate(`/SetUp/${data.userid}`)
                
             })
             .catch(error => console.log('error', error));

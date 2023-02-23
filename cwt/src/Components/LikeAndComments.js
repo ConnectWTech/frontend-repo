@@ -26,7 +26,7 @@ export default function LikeAndComments (props){
                     method: 'PUT',
                     redirect: 'follow'
                 };
-                let data = await fetch(`http://localhost:5020/posts/add/${props.obj.obj.postid}`, requestOptions)
+                let data = await fetch(`http://localhost:5500/posts/add/${props.obj.obj.postid}`, requestOptions)
                     .then(response => response.json())
                     .then(data => {
                         console.log(data)
@@ -40,7 +40,7 @@ export default function LikeAndComments (props){
                     method: 'PUT',
                     redirect: 'follow'
                 };
-                let data = await fetch(`http://localhost:5020/posts/s/${props.obj.obj.postid}`, requestOptions)
+                let data = await fetch(`http://localhost:5500/posts/s/${props.obj.obj.postid}`, requestOptions)
                     .then(response => response.json())
                     .then(data => {
                         setLike(true)

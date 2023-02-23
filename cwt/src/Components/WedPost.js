@@ -14,8 +14,8 @@ import { useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function WedPost (props){
-    console.log(props.obj.technologys)
-    let tech = props.obj.technologys.split(',')
+    console.log(props.obj.technologies)
+    let tech = props.obj.technologies.split(',')
     let hash = props.obj.hashtag.split(',')
 
     const navigate = useNavigate()

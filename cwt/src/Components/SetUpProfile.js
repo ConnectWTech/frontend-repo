@@ -23,6 +23,7 @@ const theme = createTheme({
 
 export default function SetUpProfile (){
     const navigate = useNavigate()
+    let { id } = useParams();
     return (
         <div>
             <Navbar></Navbar>
@@ -32,8 +33,8 @@ export default function SetUpProfile (){
                     Set Up Profile Now
                 </Typography>
                 <Box sx={{ height: 300,margin:'auto',marginTop:'20px',borderRadius:'5px', display:'flex'}}>
-                <Button color="primary" sx={{ width: 150 , height: 100, marginRight:'20px',borderRadius:'5px' ,padding:5,textAlign:'center',bgcolor:'#b6ccba', fontSize:30}} variant="contained" onClick={() => { navigate('/ProfileForm') }}>Yes</Button>
-                <Button color="primary" sx={{ width: 150 , height: 100, marginLeft:'20px',borderRadius:'5px' ,padding:5,textAlign:'center',bgcolor:'#b6ccba', fontSize:30}} variant="contained" onClick={() => { navigate('/EngineerFeeds') }}>No</Button>
+                <Button color="primary" sx={{ width: 150, height: 100, marginRight:'20px',borderRadius:'5px' ,padding:5,textAlign:'center',bgcolor:'#b6ccba', fontSize:30}} variant="contained" onClick={() => { navigate(`/ProfileForm/${id}`) }}>Yes</Button>
+                <Button color="primary" sx={{ width: 150, height: 100, marginLeft:'20px',borderRadius:'5px' ,padding:5,textAlign:'center',bgcolor:'#b6ccba', fontSize:30}} variant="contained" onClick={() => { navigate('/EngineerFeeds') }}>No</Button>
                 </Box>
             </Box>
             </ThemeProvider>

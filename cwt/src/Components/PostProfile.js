@@ -11,9 +11,9 @@ import { useNavigate } from 'react-router-dom';
 import Menu from './MenuBar';
 import { Box } from '@mui/system';
 
-export default function WedPost (props){
-    console.log(props.obj.technologys)
-    let tech = props.obj.technologys.split(',')
+export default function WedPostCardProfile (props){
+    console.log(props.obj.technologies)
+    let tech = props.obj.technologies.split(',')
     let hash = props.obj.hashtag.split(',')
     const navigate = useNavigate()
     let user = localStorage.getItem('username')
