@@ -22,7 +22,7 @@ export default function WedPost (props){
     return (
         <div >
             <Card sx={{ width: '60vw',margin:'auto',marginTop:'20px', padding:'15px',borderRadius:'15px'}}>
-            <Typography gutterBottom variant="h4" sx={{marginLeft:'10px'}} onClick={()=>{navigate(`/Profile/${props.obj.userid}`)}} component="div">{props.obj.username.charAt(0).toUpperCase() + props.obj.username.slice(1)}</Typography>
+            <Typography gutterBottom variant="h4" sx={{marginLeft:'10px'}} onClick={()=>{navigate(`/Profile/${props.obj.userid}/${'Engineer'}`)}} component="div">{props.obj.username.charAt(0).toUpperCase() + props.obj.username.slice(1)}</Typography>
                 <CardMedia
                     component="img"
                     height="400"

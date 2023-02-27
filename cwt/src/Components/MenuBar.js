@@ -20,7 +20,7 @@ export default function BasicMenu(props) {
   const Edit = async(e)=>{
     handleClose()
     if(e.target.innerText === 'Delete'){
-      await fetch(`http://localhost:5500/posts/${props.obj}`, { method: 'DELETE' })
+      await fetch(`http://localhost:1800/posts/${props.obj}`, { method: 'DELETE' })
       navigate('/EngineerFeeds')
     }
     else{

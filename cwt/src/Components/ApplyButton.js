@@ -19,7 +19,7 @@ export default function ApplyButton(props){
             headers: { 'Content-Type': 'application/json' },
             body: raw
         };
-        await fetch('http://localhost:5500/apply/',requestOptions)
+        await fetch('http://localhost:1800/apply/',requestOptions)
         .then(result => result.json())
         .then(data => {
            console.log(data)

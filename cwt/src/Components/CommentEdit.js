@@ -27,7 +27,7 @@ export default function CommentMenu(props) {
   const Edit = async(e)=>{
     handleClose()
     if(e.target.innerText === 'Delete'){
-      await fetch(`http://localhost:5500/comments/${props.obj}`, { method: 'DELETE' })
+      await fetch(`http://localhost:1800/comments/${props.obj}`, { method: 'DELETE' })
       navigate(`/comment/${id}`)
     }
     window.location.reload(false);

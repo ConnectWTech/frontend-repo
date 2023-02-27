@@ -19,7 +19,7 @@ export default function JobCard(props) {
   return (
     <Card sx={{ maxWidth: 700 , margin:'auto',marginTop:'20px',borderRadius:'5px', display:'flex', justifyContent:'space-between'}}>
       <CardContent sx={{ width: 600 }}>
-        <Typography gutterBottom variant="h5" onClick={()=>{navigate(`/Profile/${props.obj.userid}`)}} component="div">
+        <Typography gutterBottom variant="h5" onClick={()=>{navigate(`/Profile/${props.obj.userid}/${'Business'}`)}} component="div">
           {props.obj.username.charAt(0).toUpperCase() + props.obj.username.slice(1)}
         </Typography>
         <Typography variant="body1" color="text.secondary">

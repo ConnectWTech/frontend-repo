@@ -16,6 +16,7 @@ import SetUpProfile from "./SetUpProfile";
 import ProfileForm from "./ProfileForm";
 import EditPostForm from './EditPostForm'
 import EditForm from "./EditJobs";
+import EditProfile from './EditProfile'
 import Comments from "./Comment";
 function App() {
   return (
@@ -32,8 +33,9 @@ function App() {
         <Route path='/post/:id' element={<WebPostInfo/>}/>
         <Route path='/editPost/:id' element={<EditPostForm/>}/>
         <Route path='/editJobs/:id' element={<EditForm/>}/>
+        <Route path='/editProfile/:id' element={<EditProfile/>}/>
         <Route path='/Applications' element={<Application/>}/>
-        <Route path='/Profile/:id' element={<Profile/>}/>
+        <Route path='/Profile/:id/:type' element={<Profile/>}/>
         <Route path='/PostWebsite' element={<PostForm/>}/>
         <Route path='/JobsForm' element={<JobsForm/>}/>
         <Route path='/ProfileForm/:id' element={<ProfileForm/>}/>

@@ -19,7 +19,7 @@ Some technical challenges would be integrating multiple communication streams wi
 ## Extension Opportunities 
 Some extension opportunities include building a page for users to ask questions about coding problems users are having and setting up a meeting with multiple people in a video chat. Also, adding images by importing them and saving them to a back-end cloud using Cloudinary API and widgets.  
 
-## Technologys That Help Make CWT
+## technologies That Help Make CWT
 <div align="center">
 	<code><img height="50" src="https://user-images.githubusercontent.com/25181517/192107854-765620d7-f909-4953-a6da-36e1ef69eea6.png" alt="HTTP" title="HTTP" /></code>
 	<code><img height="50" src="https://user-images.githubusercontent.com/25181517/187070862-03888f18-2e63-4332-95fb-3ba4f2708e59.png" alt="websocket" title="websocket" /></code>

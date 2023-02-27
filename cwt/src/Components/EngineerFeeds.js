@@ -11,7 +11,7 @@ export default function EngineerFeeds (){
     const [webPost, setwebPost] = useState([]);
     useEffect(() => {
         async function fetchData() {
-            const result = await fetch('http://localhost:5500/posts')
+            const result = await fetch('http://localhost:1800/posts')
             const json = await result.json()
             setwebPost(json)
             }

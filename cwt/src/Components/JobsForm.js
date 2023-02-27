@@ -111,7 +111,7 @@ const theme = createTheme({
                 headers: { 'Content-Type': 'application/json' },
                 body: raw
             };
-            await fetch('http://localhost:5500/job_post/',requestOptions)
+            await fetch('http://localhost:1800/job_post/',requestOptions)
             .then(result => result.json())
             .then(data => {
                 console.log(data)

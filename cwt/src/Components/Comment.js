@@ -19,7 +19,7 @@ export default function Comments (){
     let { id } = useParams();
     useEffect(() => {
         async function fetchData() {
-            const result = await fetch(`http://localhost:5500/comments/${id}`)
+            const result = await fetch(`http://localhost:1800/comments/${id}`)
             const json = await result.json()
             setCommentsData(json)
             }
@@ -27,7 +27,7 @@ export default function Comments (){
       }, []);
     return (
         <div>
-            <Navbar></Navbar>
+            <Navbar />
         <div style={phantom}>
              {commentsData.length>0 && commentsData.map(el => <CommentCard key={el.id} obj={el}></CommentCard>)}
         </div>

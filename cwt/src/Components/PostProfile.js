@@ -22,7 +22,7 @@ export default function WedPostCardProfile (props){
         <div >
             <Card sx={{ width: '60vw',margin:'auto',marginTop:'20px', padding:'15px',borderRadius:'15px'}}>
                 <Box sx={{ display:'flex', justifyContent:'space-between'}}>
-                    <Typography gutterBottom variant="h4" sx={{marginLeft:'10px'}} onClick={()=>{navigate(`/Profile/${props.obj.userid}`)}} component="div">{props.obj.username.charAt(0).toUpperCase() + props.obj.username.slice(1)}</Typography>
+                    <Typography gutterBottom variant="h4" sx={{marginLeft:'10px'}} onClick={()=>{navigate(`/Profile/${props.obj.userid}/Engineer`)}} component="div">{props.obj.username.charAt(0).toUpperCase() + props.obj.username.slice(1)}</Typography>
                     {user === props.obj.username && <Menu obj={props.obj.postid}></Menu>}
                 </Box>
                 <CardMedia

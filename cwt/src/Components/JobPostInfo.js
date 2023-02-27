@@ -25,10 +25,10 @@ export default function JobPostinfo (){
     let type = localStorage.getItem('typeof')
     useEffect(() => {
         async function fetchData() {
-            const result = await fetch(`http://localhost:5500/apply/job/${id}`)
+            const result = await fetch(`http://localhost:1800/apply/job/${id}`)
             const json = await result.json()
             setapplicate(json)
-            const jobResult = await fetch(`http://localhost:5500/apply/info/${id}`)
+            const jobResult = await fetch(`http://localhost:1800/apply/info/${id}`)
             const jobJson = await jobResult.json()
             setJob(jobJson)
             setTech(jobJson.technologies)
@@ -44,7 +44,7 @@ export default function JobPostinfo (){
             <Navbar></Navbar>
             <Card sx={{ maxWidth: 700 , margin:'auto',marginTop:'20px',borderRadius:'5px', display:'flex', justifyContent:'space-between'}}>
             <CardContent sx={{ width: 600 }}>
-              <Typography gutterBottom variant="h5" onClick={()=>{navigate(`/Profile/${jobinfo.userid}`)}} component="div">
+              <Typography gutterBottom variant="h5" onClick={()=>{navigate(`/Profile/${jobinfo.userid}/${'Business'}`)}} component="div">
                 {jobinfo.username}
               </Typography>
               <Typography variant="body1" color="text.secondary">

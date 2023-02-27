@@ -14,13 +14,13 @@ export default function JobCard(props) {
   return (
     <Card sx={{ maxWidth: 700 , margin:'auto',marginTop:'20px',borderRadius:'5px', display:'flex', justifyContent:'space-between'}}>
         <CardContent>
-            <Typography gutterBottom variant="h5" onClick={()=>{navigate(`/Profile/${props.obj.userid}`)}} component="div">
+            <Typography gutterBottom variant="h5" onClick={()=>{navigate(`/Profile/${props.obj.userid}/Business`)}} component="div">
                 {props.obj.username.charAt(0).toUpperCase() + props.obj.username.slice(1)}
             </Typography>
-            <Typography gutterBottom variant="h5" onClick={()=>{navigate(`/Profile/${props.obj.userid}`)}} component="div">
+            <Typography gutterBottom variant="h5" onClick={()=>{navigate(`/Profile/${props.obj.userid}/Business`)}} component="div">
                 {props.obj.title}
             </Typography>
-            <Typography gutterBottom variant="h5" onClick={()=>{navigate(`/Profile/${props.obj.userid}`)}} component="div">
+            <Typography gutterBottom variant="h5" onClick={()=>{navigate(`/Profile/${props.obj.userid}/Business`)}} component="div">
                 {props.obj.accepted_or_denied_or_waiting}
             </Typography>
        </CardContent>

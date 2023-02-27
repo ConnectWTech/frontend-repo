@@ -81,21 +81,20 @@ const theme = createTheme({
 
  export default function EditForm (){
     const [bio, setbio] = useState('');
-    const [title, setTitle ] = useState('');
+    const [photo, setPhoto ] = useState('');
     const [technologies, settechnologies] = useState([]);
     const [alert, setAlert] = useState(false);
     const [alertContent, setAlertContent] = useState('');
     const navigate = useNavigate()
-
     let { id } = useParams();
     useEffect(() => {
         async function fetchData() {
-            await fetch(`http://localhost:1800/job_post/info/${id}`)
+            await fetch(`http://localhost:1800/profile/${id}`)
             .then(result => result.json())
             .then(json => {
                 setbio(json[0].bio)
                 settechnologies(json[0].technologies.split(','))
-                setTitle(json[0].title)
+                setPhoto(json[0].photo)
             })
             
             }
@@ -118,8 +117,8 @@ const theme = createTheme({
 
   
   
-    const titleHandleChange = (event) => {
-        setTitle(event.target.value);
+    const photoHandleChange = (event) => {
+        setPhoto(event.target.value);
     };
 
     
@@ -127,10 +126,10 @@ const theme = createTheme({
         event.preventDefault()
         
             let raw = JSON.stringify({
-                title,
+                photo,
                 technologies: `${technologies}`,
                 bio,
-                id:id
+                userid:id
                 
             })
             console.log(raw)
@@ -139,11 +138,10 @@ const theme = createTheme({
                 headers: { 'Content-Type': 'application/json' },
                 body: raw
             };
-            await fetch('http://localhost:1800/job_post/update',requestOptions)
+            await fetch('http://localhost:1800/profile/update',requestOptions)
             .then(result => result.json())
             .then(data => {
                 console.log(data)
-                navigate(`/jobs`)
                
             })
             .catch(error => console.log('error', error));
@@ -166,7 +164,7 @@ const theme = createTheme({
                         {alert ? <Alert severity='error'>{alertContent}</Alert> : <></> }   
                         <ThemeProvider theme={theme}>
                             <Box component="form" sx={{'& > :not(style)': { m: .5, width: '35ch',height:'5ch' },}} noValidate autoComplete="on" className='signup-form'>    
-                                <TextField id="outlined-basic" onChange={titleHandleChange} size='small' value={title} label="Title" variant="outlined"/>
+                                <TextField id="outlined-basic" onChange={photoHandleChange} size='small' value={photo} label="Photo" variant="outlined"/>
                                 <TextField id="outlined-basic" onChange={biohandleChange} size='small' value={bio} label="Bio" variant="outlined"/>
                                 <div style={{paddingBottom: 20 }}>
                                     <FormControl sx={{width: 300}}>

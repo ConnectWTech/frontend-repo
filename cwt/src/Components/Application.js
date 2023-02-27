@@ -7,7 +7,7 @@ export default function Application (){
     let id = localStorage.getItem('userId')
     useEffect(() => {
         async function fetchData() {
-            const result = await fetch(`http://localhost:5500/apply/user/${id}`)
+            const result = await fetch(`http://localhost:1800/apply/user/${id}`)
             const json = await result.json()
             setwebPost(json)
             }

@@ -93,7 +93,7 @@ const theme = createTheme({
     let { id } = useParams();
     useEffect(() => {
         async function fetchData() {
-            await fetch(`http://localhost:5500/posts/info/${id}`)
+            await fetch(`http://localhost:5000/posts/info/${id}`)
             .then(result => result.json())
             .then(json => {
                 setUrl(json[0].url)
@@ -161,7 +161,7 @@ const theme = createTheme({
                 headers: { 'Content-Type': 'application/json' },
                 body: raw
             };
-            await fetch('http://localhost:5500/posts/update',requestOptions)
+            await fetch('http://localhost:5000/posts/update',requestOptions)
             .then(result => result.json())
             .then(data => {
                 console.log(data)

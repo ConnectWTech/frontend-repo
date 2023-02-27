@@ -28,7 +28,7 @@ export default function SwipeableTemporaryDrawer() {
       return(
         <Box sx={{width:250, fontStyle: 'italic', boxShadow: 3 , color: '#91CA9D', bgcolor:'#343432'}}  role="presentation" onClick={toggleDrawer(false)} onKeyDown={toggleDrawer(false)}>
           <List>
-            {[['Home','/'],['Search','/Search'],['Profile', `/Profile/${id}`],['Make A Job Post', '/JobsForm'],['Websites', '/EngineerFeeds'],['Jobs', '/jobs']].map((text, index, array) => (
+            {[['Home','/'],['Search','/Search'],['Profile', `/Profile/${id}/${type}`],['Make A Job Post', '/JobsForm'],['Websites', '/EngineerFeeds'],['Jobs', '/jobs']].map((text, index, array) => (
               <ListItem key={text} disablePadding onClick={()=>{navigate(array[index][1])}}>
                 <ListItemButton>
                   <ListItemText primary={array[index][0]}/>
@@ -38,7 +38,7 @@ export default function SwipeableTemporaryDrawer() {
           </List>
           <Divider />
           <List>
-              {[['Application','/Applications'],['All Messages','/']].map((text, index, array) => (
+              {[['All Messages','/']].map((text, index, array) => (
                 <ListItem key={text} disablePadding onClick={()=>{navigate(array[index][1])}}>
                   <ListItemButton>
                     <ListItemText primary={array[index][0]}/>
@@ -60,7 +60,7 @@ export default function SwipeableTemporaryDrawer() {
         return(
           <Box sx={{width:250, fontStyle: 'italic', boxShadow: 3 , color: '#91CA9D', bgcolor:'#343432'}} role="presentation" onClick={toggleDrawer(false)} onKeyDown={toggleDrawer(false)}>
             <List sx={{ boxShadow: 3 }}>
-              {[['Home','/'],['Search','/Search'],['Profile', `/Profile/${id}`],['Make A Post', '/PostWebsite'],['Websites', '/EngineerFeeds'],['Jobs', '/jobs']].map((text, index, array) => (
+              {[['Home','/'],['Search','/Search'],['Profile', `/Profile/${id}/${type}`],['Make A Post', '/PostWebsite'],['Websites', '/EngineerFeeds'],['Jobs', '/jobs']].map((text, index, array) => (
                 <ListItem  sx={{}}key={text} disablePadding onClick={()=>{navigate(array[index][1])}}>
                   <ListItemButton>
                     <ListItemText primary={array[index][0]}/>
