@@ -11,6 +11,15 @@ export default function JobCard(props) {
   let user = localStorage.getItem('username')
   let type = localStorage.getItem('typeof')
   console.log(props)
+  const handleClick = async(e) =>{
+    await fetch(`http://localhost:1800/apply/${props.obj.id}`, { method: 'DELETE' })
+        .then(result => result.json())
+        .then(data => {
+                console.log(data)
+            })
+            window.location.reload(false);
+      }
+
   return (
     <Card sx={{ maxWidth: 700 , margin:'auto',marginTop:'20px',borderRadius:'5px', display:'flex', justifyContent:'space-between'}}>
         <CardContent>
@@ -25,8 +34,8 @@ export default function JobCard(props) {
             </Typography>
        </CardContent>
        <CardContent>
-                {props.obj.accepted_or_denied_or_waiting === "Waiting" && <CardActions sx={{ display:'flex', flexDirection:'column'}}><Button>DELETE</Button> <Button>Message</Button></CardActions>}
-                {props.obj.accepted_or_denied_or_waiting === "Denied" && <Button>DELETE</Button>}
+                {props.obj.accepted_or_denied_or_waiting === "Waiting" && <CardActions sx={{ display:'flex', flexDirection:'column'}}><Button onClick={handleClick}>DELETE</Button> <Button>Message</Button></CardActions>}
+                {props.obj.accepted_or_denied_or_waiting === "Denied" && <Button onClick={handleClick}>DELETE</Button>}
        </CardContent>
        
     </Card>

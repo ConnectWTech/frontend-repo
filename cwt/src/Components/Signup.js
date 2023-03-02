@@ -1,5 +1,11 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth, db, storage } from "../firebase";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { doc, setDoc } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore"; 
+
+import { useNavigate, Link } from "react-router-dom";
 import React from 'react';
 import Navbar from './Navbar';
 import InputLabel from '@mui/material/InputLabel';
@@ -34,6 +40,7 @@ const theme = createTheme({
     const [password, setPassword] = useState('');
     const [alert, setAlert] = useState(false);
     const [alertContent, setAlertContent] = useState('');
+
     const navigate = useNavigate()
     
     const accountTypeHandleChange = (event) => {
@@ -55,6 +62,7 @@ const theme = createTheme({
     const passwordHandleChange = (event) => {
         setPassword(event.target.value);
         };
+        
     const submitChange = async(event) =>{
         event.preventDefault()
         let info = await fetch(`http://localhost:1800/users/check/${username}/`)
@@ -87,10 +95,20 @@ const theme = createTheme({
                 headers: { 'Content-Type': 'application/json' },
                 body: raw
             };
+       
+            const docRef = await addDoc(collection(db, "users"), {
+                firstname: firstName,
+                lastname: lastName,
+                email,
+                username,
+                type_of:accountType
+              }).catch(error => console.log('error', error));
+              console.log("Document written with ID: ", docRef.id)
+
             await fetch('http://localhost:1800/users/',requestOptions)
             .then(result => result.json())
             .then(data => {
-                localStorage.setItem("userId", data.userid);
+                localStorage.setItem("userId", docRef.id);
                 localStorage.setItem("username", data.username);
                 localStorage.setItem("firstname", data.firstname);
                 localStorage.setItem("typeof", data.type_of);
@@ -98,12 +116,9 @@ const theme = createTheme({
                
             })
             .catch(error => console.log('error', error));
-            
-            
-            
-           
-
-    }
+            await setDoc(doc(db, "userChats", docRef.id), {}).catch(error => console.log('error', error));
+         
+}
 }
         
     return (
@@ -132,7 +147,8 @@ const theme = createTheme({
 
                                 </FormControl>
 
-                                <Button color="primary" variant="contained" onClick={submitChange} >Submit</Button>
+                                <Button  color="primary" variant="contained" onClick={submitChange} >Submit</Button>
+                            
                                 <Button color="primary" variant="contained" onClick={() => { navigate('/login') }}>Or Login</Button>
                             </Box>
                             

@@ -26,7 +26,7 @@ export default function SwipeableTemporaryDrawer() {
   const list = (anchor) =>{
     if (type === 'Business'){
       return(
-        <Box sx={{width:250, fontStyle: 'italic', boxShadow: 3 , color: '#91CA9D', bgcolor:'#343432'}}  role="presentation" onClick={toggleDrawer(false)} onKeyDown={toggleDrawer(false)}>
+        <Box sx={{width:175, fontStyle: 'italic', boxShadow: 3 , color: '#91CA9D', bgcolor:'#343432'}}  role="presentation" onClick={toggleDrawer(false)} onKeyDown={toggleDrawer(false)}>
           <List>
             {[['Home','/'],['Search','/Search'],['Profile', `/Profile/${id}/${type}`],['Make A Job Post', '/JobsForm'],['Websites', '/EngineerFeeds'],['Jobs', '/jobs']].map((text, index, array) => (
               <ListItem key={text} disablePadding onClick={()=>{navigate(array[index][1])}}>
@@ -38,7 +38,7 @@ export default function SwipeableTemporaryDrawer() {
           </List>
           <Divider />
           <List>
-              {[['All Messages','/']].map((text, index, array) => (
+              {[['All Messages',`/inbox/${id}`]].map((text, index, array) => (
                 <ListItem key={text} disablePadding onClick={()=>{navigate(array[index][1])}}>
                   <ListItemButton>
                     <ListItemText primary={array[index][0]}/>
@@ -58,7 +58,7 @@ export default function SwipeableTemporaryDrawer() {
         )
       } else if(type === 'Engineer'){
         return(
-          <Box sx={{width:250, fontStyle: 'italic', boxShadow: 3 , color: '#91CA9D', bgcolor:'#343432'}} role="presentation" onClick={toggleDrawer(false)} onKeyDown={toggleDrawer(false)}>
+          <Box sx={{width:175, fontStyle: 'italic', boxShadow: 3 , color: '#91CA9D', bgcolor:'#343432'}} role="presentation" onClick={toggleDrawer(false)} onKeyDown={toggleDrawer(false)}>
             <List sx={{ boxShadow: 3 }}>
               {[['Home','/'],['Search','/Search'],['Profile', `/Profile/${id}/${type}`],['Make A Post', '/PostWebsite'],['Websites', '/EngineerFeeds'],['Jobs', '/jobs']].map((text, index, array) => (
                 <ListItem  sx={{}}key={text} disablePadding onClick={()=>{navigate(array[index][1])}}>
@@ -70,7 +70,7 @@ export default function SwipeableTemporaryDrawer() {
             </List>
             <Divider/>
             <List>
-              {[['Application','/Applications'],['All Messages','/']].map((text, index, array) => (
+              {[['Application','/Applications'],['All Messages',`/inbox/${id}`]].map((text, index, array) => (
                 <ListItem key={text} disablePadding onClick={()=>{navigate(array[index][1])}}>
                   <ListItemButton>
                     <ListItemText primary={array[index][0]}/>
@@ -91,7 +91,7 @@ export default function SwipeableTemporaryDrawer() {
           )
       }else{
         return(
-        <Box sx={{width:250, fontStyle: 'italic', boxShadow: 3 , color: '#91CA9D', bgcolor:'#343432'}} x role="presentation" onClick={toggleDrawer(false)} onKeyDown={toggleDrawer(false)}>
+        <Box sx={{width:175, fontStyle: 'italic', boxShadow: 3 , color: '#91CA9D', bgcolor:'#343432'}} x role="presentation" onClick={toggleDrawer(false)} onKeyDown={toggleDrawer(false)}>
             <List>
               {[['Home','/'],['Login or Sign up','/login'],['Search','/Search'],['Jobs', '/jobs'],['Websites', '/EngineerFeeds']].map((text, index, array) => (
                 <ListItem key={text} disablePadding onClick={()=>{navigate(array[index][1])}}>
@@ -109,7 +109,7 @@ export default function SwipeableTemporaryDrawer() {
   return (
     <div style={{ padding:'20px', bgcolor: '#91CA9D'}}>
         <div id="menuBackground" >
-          <Button onClick={toggleDrawer(true)}>{<MenuIcon sx={{ fontSize: 60, color:'#343432' }}/>}</Button>
+          <Button onClick={toggleDrawer(true)}>{<MenuIcon sx={{ fontSize: 40, color:'#343432' }}/>}</Button>
         </div>
           <SwipeableDrawer sx={{backgroundColor: 'transparent',"& .MuiPaper-root": {bgcolor:'#343432'}}} anchor={'left'} open={state} onClose={toggleDrawer(false)} onOpen={toggleDrawer(true)}>
             {list('left')}

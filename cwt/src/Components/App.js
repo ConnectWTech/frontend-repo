@@ -18,11 +18,15 @@ import EditPostForm from './EditPostForm'
 import EditForm from "./EditJobs";
 import EditProfile from './EditProfile'
 import Comments from "./Comment";
+import Inbox from './Inbox'
+
 function App() {
   return (
     <div className="App">
       <Routes>
         <Route path='/' element={<LandingPage/>}/>
+        <Route path='/inbox/:id'element={<Inbox />}
+          />
         <Route path='/SetUp/:id' element={<SetUpProfile/>}/>
         <Route path='/EngineerFeeds' element={<EngineerFeeds/>}/>
         <Route path='/Search' element={<Search/>}/>
